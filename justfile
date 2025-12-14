@@ -41,7 +41,8 @@ ci-coverage: env-info && \
 ci-test: env-info test-fmt clippy test test-doc build-thumbv7em-none-eabi && assert-git-is-clean
 
 # Run minimal subset of tests to ensure compatibility with MSRV
-ci-test-msrv: env-info test-msrv
+ci-test-msrv: env-info
+    cargo check --all-features --package {{main_crate}}
 
 # Test building for an embedded no_std target
 build-thumbv7em-none-eabi:  (rustup-add-target 'thumbv7em-none-eabi')
@@ -102,7 +103,7 @@ get-msrv package=main_crate:  (get-crate-field 'rust_version' package)
 
 # Find the minimum supported Rust version (MSRV) using cargo-msrv extension, and update Cargo.toml
 msrv:  (cargo-install 'cargo-msrv')
-    cargo msrv find --write-msrv --ignore-lockfile -- {{just}} test-msrv
+    cargo msrv find --write-msrv --ignore-lockfile -- {{just}} ci-test-msrv
 
 # Run cargo-release
 release *args='':  (cargo-install 'release-plz')
@@ -135,10 +136,6 @@ test-doc:  (docs '')
 # Test code formatting
 test-fmt: && (fmt-toml '--check' '--check-format')
     cargo fmt --all -- --check
-
-# Test minimal build with just the main dependencies
-test-msrv:
-    cargo check --all-features --package {{main_crate}}
 
 # Find unused dependencies. Uses `cargo-udeps`
 udeps:  (cargo-install 'cargo-udeps')
