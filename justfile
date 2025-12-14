@@ -161,11 +161,11 @@ assert-cmd command:
 [private]
 assert-git-is-clean:
     @if [ -n "$(git status --untracked-files --porcelain)" ]; then \
-      >&2 echo "ERROR: git repo is no longer clean. Make sure compilation and tests artifacts are in the .gitignore, and no repo files are modified." ;\
-      >&2 echo "######### git status ##########" ;\
-      git status ;\
-      git --no-pager diff ;\
-      exit 1 ;\
+        >&2 echo "ERROR: git repo is no longer clean. Make sure compilation and tests artifacts are in the .gitignore, and no repo files are modified." ;\
+        >&2 echo "######### git status ##########" ;\
+        git status ;\
+        git --no-pager diff ;\
+        exit 1 ;\
     fi
 
 # Check if a certain Cargo command is installed, and install it if needed
@@ -202,6 +202,6 @@ rustup-add-target target:
 [private]
 test-std-enabled-disabled dependency feature:
     cargo tree --invert {{dependency}} --format '{p} {f}' --depth 0 --edges normal --no-default-features {{feature}} | tee /dev/stderr | grep std \
-      && echo 'std is enabled in {{dependency}} in non-default mode' && exit 1 || echo 'std is not enabled in {{dependency}} as expected'
+        && echo 'std is enabled in {{dependency}} in non-default mode' && exit 1 || echo 'std is not enabled in {{dependency}} as expected'
     cargo tree --invert {{dependency}} --format '{p} {f}' --depth 0 --edges normal {{feature}} | tee /dev/stderr | grep -v std \
-      && echo 'std is not enabled in {{dependency}} in default mode' && exit 1 || echo 'std is enabled in {{dependency}} as expected'
+        && echo 'std is not enabled in {{dependency}} in default mode' && exit 1 || echo 'std is enabled in {{dependency}} as expected'
