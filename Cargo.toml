@@ -34,13 +34,16 @@ serde = ["dep:serde"]
 doip = []
 # Include support for Keyword protocol 2000 - ISO-142330
 kwp2000 = []
-with-kwp2000 = ["kwp2000"] # deprecated, use `kwp2000` instead
+# deprecated, use `kwp2000` instead
+with-kwp2000 = ["kwp2000"]
 # Include support for On-board diagnostics - ISO-9141
 obd2 = []
-with-obd2 = ["obd2"] # deprecated, use `obd2` instead
+# deprecated, use `obd2` instead
+with-obd2 = ["obd2"]
 # Include support for Unified Diagnostic Services - ISO-14229-1
 uds = []
-with-uds = ["uds"] # deprecated, use `uds` instead
+# deprecated, use `uds` instead
+with-uds = ["uds"]
 
 [dependencies]
 defmt = { version = "1.0.1", optional = true }
