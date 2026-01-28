@@ -38,7 +38,7 @@ ci-coverage: env-info && \
     mkdir -p target/llvm-cov
 
 # Run all tests as expected by CI
-ci-test: env-info test-fmt clippy test test-doc build-thumbv7em-none-eabi && assert-git-is-clean
+ci-test: env-info test-fmt clippy test test-doc build-thumbv7em-none-eabi deny && assert-git-is-clean
 
 # Run minimal subset of tests to ensure compatibility with MSRV
 ci-test-msrv: env-info
@@ -61,6 +61,9 @@ clippy *args:
 # Generate code coverage report. Will install `cargo llvm-cov` if missing.
 coverage *args='--no-clean --open':  (cargo-install 'cargo-llvm-cov')
     cargo llvm-cov --workspace --all-features --all-targets --include-build-script {{args}}
+
+deny *args='check': (cargo-install 'cargo-deny')
+    cargo deny {{args}}
 
 # Build and open code documentation
 docs *args='--open':
