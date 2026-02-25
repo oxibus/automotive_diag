@@ -66,6 +66,7 @@ generate_enum! {
     /// or [`ScalingExtension::get_prefix`] to return the optional prefix of the scaling byte.
     #[repr(u8)]
     #[derive(strum::FromRepr, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
+    #[cfg_attr(feature = "bin-proto", derive(bin_proto::BitEncode, bin_proto::BitDecode))]
     #[cfg_attr(feature = "iter", derive(strum::EnumIter))]
     #[cfg_attr(feature = "pyo3", pyo3::pyclass(eq, eq_int))]
     #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]

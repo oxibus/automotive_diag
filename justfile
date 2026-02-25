@@ -127,7 +127,7 @@ test: \
     cargo test --no-default-features --features obd2
     cargo test --no-default-features --features uds
     cargo test --no-default-features --features doip
-    cargo test --no-default-features --features defmt,display,iter,serde,doip,uds,obd2,kwp2000
+    cargo test --no-default-features --features bin-proto,defmt,display,iter,serde,doip,uds,obd2,kwp2000
     cargo test --no-default-features --features std,doip,uds,obd2,kwp2000
     cargo test --features pyo3
     cargo test --features pyo3,serde

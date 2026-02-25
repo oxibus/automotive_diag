@@ -7,6 +7,8 @@ python_test!(uds, ScalingType, Bcd, Ascii);
 /// Scaling high nibble, representing the type of data without its size. The size is given by the low nibble.
 #[repr(u8)]
 #[derive(strum::FromRepr, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
+#[cfg_attr(feature = "bin-proto", derive(bin_proto::BitEncode))]
+#[cfg_attr(feature = "bin-proto", derive(bin_proto::BitDecode))]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[cfg_attr(feature = "display", derive(displaydoc::Display))]
 #[cfg_attr(feature = "iter", derive(strum::EnumIter))]
@@ -99,16 +101,90 @@ impl TryFrom<u8> for Scaling {
     }
 }
 
+#[cfg(feature = "bin-proto")]
+impl<Ctx> bin_proto::BitEncode<Ctx> for Scaling {
+    fn encode<W, E>(&self, write: &mut W, ctx: &mut Ctx, (): ()) -> bin_proto::Result<()>
+    where
+        W: bin_proto::BitWrite,
+        E: bin_proto::Endianness,
+    {
+        <u8 as bin_proto::BitEncode<_, _>>::encode::<_, E>(&(*self).into(), write, ctx, ())
+    }
+}
+
+#[cfg(feature = "bin-proto")]
+impl<Ctx> bin_proto::BitDecode<Ctx> for Scaling {
+    fn decode<R, E>(read: &mut R, ctx: &mut Ctx, (): ()) -> bin_proto::Result<Self>
+    where
+        R: bin_proto::BitRead,
+        E: bin_proto::Endianness,
+    {
+        <u8 as bin_proto::BitDecode<_, _>>::decode::<_, E>(read, ctx, ())?
+            .try_into()
+            .map_err(bin_proto::Error::Other)
+    }
+}
+
 #[cfg(test)]
 mod tests {
+    use ScalingType::*;
+
     use super::*;
 
     #[test]
     fn test_scaling_byte() {
-        use ScalingType::*;
         assert_eq!(u8::from(Scaling::new(SignedNumeric, 4).unwrap()), 0x14);
         assert_eq!(u8::from(Scaling::new(SignedNumeric, 1).unwrap()), 0x11);
         assert!(Scaling::new(SignedNumeric, 0).is_err());
         assert!(Scaling::new(Bcd, 1).is_err());
+    }
+
+    #[test]
+    #[cfg(feature = "bin-proto")]
+    fn test_scaling_byte_encode() {
+        let mut buf = [0; 1];
+
+        assert_eq!(
+            1,
+            bin_proto::BitCodec::encode_bytes_buf(
+                &Scaling::new(SignedNumeric, 4).unwrap(),
+                bin_proto::BigEndian,
+                &mut buf
+            )
+            .unwrap()
+        );
+        assert_eq!(0x14, buf[0]);
+
+        assert_eq!(
+            1,
+            bin_proto::BitCodec::encode_bytes_buf(
+                &Scaling::new(SignedNumeric, 1).unwrap(),
+                bin_proto::BigEndian,
+                &mut buf
+            )
+            .unwrap()
+        );
+        assert_eq!(0x11, buf[0]);
+    }
+
+    #[test]
+    #[cfg(feature = "bin-proto")]
+    fn test_scaling_byte_decode() {
+        assert_eq!(
+            Scaling::new(SignedNumeric, 4).unwrap(),
+            bin_proto::BitCodec::decode_all_bytes(&[0x14], bin_proto::BigEndian).unwrap()
+        );
+        assert_eq!(
+            Scaling::new(SignedNumeric, 1).unwrap(),
+            bin_proto::BitCodec::decode_all_bytes(&[0x11], bin_proto::BigEndian).unwrap()
+        );
+        assert!(
+            <Scaling as bin_proto::BitCodec>::decode_all_bytes(&[0x10], bin_proto::BigEndian)
+                .is_err()
+        );
+        assert!(
+            <Scaling as bin_proto::BitCodec>::decode_all_bytes(&[0x41], bin_proto::BigEndian)
+                .is_err()
+        );
     }
 }
