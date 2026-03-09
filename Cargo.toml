@@ -48,9 +48,9 @@ with-uds = ["uds"]
 [dependencies]
 defmt = { version = "1.0.1", optional = true }
 displaydoc = { version = "0.2", optional = true, default-features = false }
-pyo3 = { version = "0.27.2", optional = true }
+pyo3 = { version = "0.28.2", optional = true }
 serde = { version = "1", optional = true, default-features = false, features = ["derive"] }
-strum = { version = "0.27.0", default-features = false, features = ["derive"] }
+strum = { version = "0.28.0", default-features = false, features = ["derive"] }
 
 [dev-dependencies]
 insta = "1.43.1"
