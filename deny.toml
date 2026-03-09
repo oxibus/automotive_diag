@@ -1,4 +1,8 @@
 [bans]
+# We have tons of these, not certain if this should be a goal to fix them all.
+# For now, just allow multiple versions of the same crate.
+multiple-versions = "allow"
+
 # This section is considered when running `cargo deny check licenses`
 # More documentation for the licenses section can be found here:
 # https://embarkstudios.github.io/cargo-deny/checks/licenses/cfg.html
