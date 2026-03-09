@@ -12,7 +12,7 @@ python_test!(
 #[derive(strum::FromRepr, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[cfg_attr(feature = "iter", derive(strum::EnumIter))]
-#[cfg_attr(feature = "pyo3", pyo3::pyclass(eq, eq_int))]
+#[cfg_attr(feature = "pyo3", pyo3::pyclass(eq, eq_int, from_py_object))]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[allow(clippy::enum_variant_names)]
 pub enum RoutineExitStatus {
