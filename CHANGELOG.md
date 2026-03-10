@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.27](https://github.com/oxibus/automotive_diag/compare/v0.1.26...v0.1.27) - 2026-03-10
+
+### Other
+
+- Add bin-proto support ([#77](https://github.com/oxibus/automotive_diag/pull/77))
+- add license checker to deny, format toml ([#79](https://github.com/oxibus/automotive_diag/pull/79))
+- add license checker to deny/CI ([#74](https://github.com/oxibus/automotive_diag/pull/74))
+- [pre-commit.ci] pre-commit autoupdate ([#73](https://github.com/oxibus/automotive_diag/pull/73))
+- minor justfile fixes ([#72](https://github.com/oxibus/automotive_diag/pull/72))
+- optimize msrv in the justfile ([#71](https://github.com/oxibus/automotive_diag/pull/71))
+- add .editorconfig ([#69](https://github.com/oxibus/automotive_diag/pull/69))
+
 ## [0.1.26](https://github.com/oxibus/automotive_diag/compare/v0.1.25...v0.1.26) - 2025-12-12
 
 ### Other
