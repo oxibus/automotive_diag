@@ -7,6 +7,8 @@ python_test!(uds, RoutineControlType, StartRoutine, StopRoutine);
 /// See chapter `14.2 RoutineControl service` in the ISO 14229 spec.
 #[repr(u8)]
 #[derive(strum::FromRepr, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
+#[cfg_attr(feature = "bin-proto", derive(bin_proto::BitEncode))]
+#[cfg_attr(feature = "bin-proto", derive(bin_proto::BitDecode))]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[cfg_attr(feature = "iter", derive(strum::EnumIter))]
 #[cfg_attr(feature = "pyo3", pyo3::pyclass(eq, eq_int, from_py_object))]

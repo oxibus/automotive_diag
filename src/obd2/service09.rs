@@ -6,6 +6,8 @@ python_test!(obd2, Service09Pid, VinMsgCount, Vin);
 /// OBD2 service 09 (Request vehicle information) PIDs
 #[repr(u8)]
 #[derive(strum::FromRepr, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
+#[cfg_attr(feature = "bin-proto", derive(bin_proto::BitEncode))]
+#[cfg_attr(feature = "bin-proto", derive(bin_proto::BitDecode))]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[cfg_attr(feature = "display", derive(displaydoc::Display))]
 #[cfg_attr(feature = "iter", derive(strum::EnumIter))]

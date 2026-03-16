@@ -39,11 +39,44 @@ impl<T: Into<u8>> From<ByteWrapper<T>> for u8 {
     }
 }
 
+#[cfg(feature = "bin-proto")]
+impl<Ctx, T> bin_proto::BitEncode<Ctx> for ByteWrapper<T>
+where
+    T: Into<u8> + Copy,
+{
+    fn encode<W, E>(&self, write: &mut W, ctx: &mut Ctx, (): ()) -> bin_proto::Result<()>
+    where
+        W: bin_proto::BitWrite,
+        E: bin_proto::Endianness,
+    {
+        <u8 as bin_proto::BitEncode<_, _>>::encode::<_, E>(&(*self).into(), write, ctx, ())
+    }
+}
+
+#[cfg(feature = "bin-proto")]
+impl<Ctx, T> bin_proto::BitDecode<Ctx> for ByteWrapper<T>
+where
+    u8: TryInto<T>,
+{
+    fn decode<R, E>(read: &mut R, ctx: &mut Ctx, (): ()) -> bin_proto::Result<Self>
+    where
+        R: bin_proto::BitRead,
+        E: bin_proto::Endianness,
+    {
+        let byte = <u8 as bin_proto::BitDecode<_, _>>::decode::<_, E>(read, ctx, ())?;
+        Ok(match byte.try_into() {
+            Ok(v) => Self::Standard(v),
+            Err(_) => Self::Extended(byte),
+        })
+    }
+}
+
 /// For a byte enum, generate `TryFrom<u8> -> $enum_name`, `From<$enum_name> -> u8`, and `ByteWrapper` alias with conversions
 macro_rules! enum_wrapper {
     ($ns:tt, $enum_name:tt, $enum_wrapper:tt) => {
         $crate::utils::enum_impls!($ns, $enum_name, u8);
         $crate::utils::enum_byte_wrapper!($ns, $enum_name, $enum_wrapper);
+        $crate::utils::bin_proto_wrapper_test!($ns, $enum_name, $enum_wrapper);
     };
     ($ns:tt, $enum_name:tt, $enum_wrapper:tt, display = $($arg:tt)*) => {
         $crate::utils::enum_wrapper!($ns, $enum_name, $enum_wrapper);
@@ -203,4 +236,43 @@ macro_rules! assert_display_hash {
     };
 }
 
-pub(crate) use {assert_display_hash, enum_byte_wrapper, enum_impls, enum_wrapper, python_test};
+/// Generate a `bin-proto` roundtrip test for a given enum wrapper
+macro_rules! bin_proto_wrapper_test {
+    ($ns:tt, $enum_name:tt, $enum_wrapper:tt) => {
+        #[cfg(all(test, feature = "bin-proto"))]
+        mod bin_proto_tests {
+            #[test]
+            fn test_encode() {
+                for byte in 0x00u8..=0xFF {
+                    let mut buf = [0; 1];
+                    assert_eq!(
+                        1,
+                        bin_proto::BitCodec::encode_bytes_buf(
+                            &$crate::$ns::$enum_wrapper::from(byte),
+                            bin_proto::BigEndian,
+                            &mut buf,
+                        )
+                        .unwrap()
+                    );
+                    assert_eq!(byte, buf[0]);
+                }
+            }
+
+            #[test]
+            fn test_decode() {
+                for byte in 0x00u8..=0xFF {
+                    assert_eq!(
+                        $crate::$ns::$enum_wrapper::from(byte),
+                        bin_proto::BitCodec::decode_all_bytes(&[byte], bin_proto::BigEndian)
+                            .unwrap()
+                    );
+                }
+            }
+        }
+    };
+}
+
+pub(crate) use {
+    assert_display_hash, bin_proto_wrapper_test, enum_byte_wrapper, enum_impls, enum_wrapper,
+    python_test,
+};

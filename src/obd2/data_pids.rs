@@ -6,6 +6,8 @@ python_test!(obd2, DataPid, PidSupport0120, PidSupport6180);
 /// OBD2 data PIDs used for Service 01 and 02
 #[repr(u8)]
 #[derive(strum::FromRepr, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
+#[cfg_attr(feature = "bin-proto", derive(bin_proto::BitEncode))]
+#[cfg_attr(feature = "bin-proto", derive(bin_proto::BitDecode))]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[cfg_attr(feature = "iter", derive(strum::EnumIter))]
 #[cfg_attr(feature = "pyo3", pyo3::pyclass(eq, eq_int, from_py_object))]
