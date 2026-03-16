@@ -6,6 +6,8 @@ python_test!(kwp2000, KwpError, GeneralReject, ServiceNotSupported);
 /// KWP2000 Error definitions
 #[repr(u8)]
 #[derive(strum::FromRepr, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
+#[cfg_attr(feature = "bin-proto", derive(bin_proto::BitEncode))]
+#[cfg_attr(feature = "bin-proto", derive(bin_proto::BitDecode))]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[cfg_attr(feature = "iter", derive(strum::EnumIter))]
 #[cfg_attr(feature = "pyo3", pyo3::pyclass(eq, eq_int))]

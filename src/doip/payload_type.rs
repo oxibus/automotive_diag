@@ -10,6 +10,8 @@ python_test!(doip, PayloadType, GenericNack, VehicleIdentificationRequest);
 /// within the `DoIP` packet.
 #[repr(u16)]
 #[derive(strum::FromRepr, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
+#[cfg_attr(feature = "bin-proto", derive(bin_proto::BitEncode))]
+#[cfg_attr(feature = "bin-proto", derive(bin_proto::BitDecode))]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[cfg_attr(feature = "display", derive(displaydoc::Display))]
 #[cfg_attr(feature = "iter", derive(strum::EnumIter))]
