@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.28](https://github.com/oxibus/automotive_diag/compare/v0.1.27...v0.1.28) - 2026-03-17
+
+### Other
+
+- *(deps)* bump the all-cargo-version-updates group across 1 directory with 2 updates ([#76](https://github.com/oxibus/automotive_diag/pull/76))
+- [pre-commit.ci] pre-commit autoupdate ([#78](https://github.com/oxibus/automotive_diag/pull/78))
+
 ## [0.1.27](https://github.com/oxibus/automotive_diag/compare/v0.1.26...v0.1.27) - 2026-03-10
 
 ### Other
