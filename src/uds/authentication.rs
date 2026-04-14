@@ -1,7 +1,16 @@
 use crate::utils::{enum_wrapper, python_test};
 
-enum_wrapper!(uds, AuthenticationSubFunction, AuthenticationSubFunctionByte);
-python_test!(uds, AuthenticationSubFunction, DeAuthenticate, VerifyCertificateUnidirectional);
+enum_wrapper!(
+    uds,
+    AuthenticationSubFunction,
+    AuthenticationSubFunctionByte
+);
+python_test!(
+    uds,
+    AuthenticationSubFunction,
+    DeAuthenticate,
+    VerifyCertificateUnidirectional
+);
 
 /// UDS Diagnostic Authentication subfunctions. Handled by SID 0x29
 #[repr(u8)]
@@ -14,7 +23,7 @@ python_test!(uds, AuthenticationSubFunction, DeAuthenticate, VerifyCertificateUn
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum AuthenticationSubFunction {
     /// Terminates the authentication session
-    DeAuthenticate  = 0x00,
+    DeAuthenticate = 0x00,
 
     /// Initiates unidirectional certificate verification where the server validates the client
     VerifyCertificateUnidirectional = 0x01,
@@ -25,6 +34,6 @@ pub enum AuthenticationSubFunction {
     /// Proves that the client possesses the private key corresponding to the certificate
     ProofOfOwnership = 0x03,
 
-    /// Initiates configuration mode 
+    /// Initiates configuration mode
     AuthenticationConfiguration = 0x08,
 }
