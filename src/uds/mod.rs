@@ -1,5 +1,6 @@
 //! Module for [Unified Diagnostic Services](https://en.wikipedia.org/wiki/Unified_Diagnostic_Services) - ISO-14229-1
 
+mod authentication;
 mod comm_control;
 mod comm_level;
 mod commands;
@@ -12,6 +13,7 @@ mod scaling_byte_ext;
 mod security_access;
 mod session_types;
 
+pub use authentication::*;
 pub use comm_control::*;
 pub use comm_level::*;
 pub use commands::*;
