@@ -2,6 +2,7 @@
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[cfg_attr(feature = "display", derive(displaydoc::Display))]
+#[cfg_attr(feature = "display", ignore_extra_doc_attributes)]
 pub enum CommunicationType {
     /// Application layer communication (inter-signal exchanges) between ECUs
     NormalCommunication,
@@ -15,6 +16,7 @@ pub enum CommunicationType {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[cfg_attr(feature = "display", derive(displaydoc::Display))]
+#[cfg_attr(feature = "display", ignore_extra_doc_attributes)]
 pub enum Subnet {
     /// All subnets
     All,

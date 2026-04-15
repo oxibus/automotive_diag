@@ -10,6 +10,7 @@ python_test!(obd2, Service09Pid, VinMsgCount, Vin);
 #[cfg_attr(feature = "bin-proto", derive(bin_proto::BitDecode))]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[cfg_attr(feature = "display", derive(displaydoc::Display))]
+#[cfg_attr(feature = "display", ignore_extra_doc_attributes)]
 #[cfg_attr(feature = "iter", derive(strum::EnumIter))]
 #[cfg_attr(feature = "pyo3", pyo3::pyclass(eq, eq_int, from_py_object))]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -28,7 +29,7 @@ pub enum Service09Pid {
     Cvn = 0x06,
     /// In use performance tracking for spark ignition engines
     InUsePerfTracking = 0x08,
-    ///ECU name message count (Only for LIN)
+    /// ECU name message count (Only for LIN)
     EcuNameMsgCount = 0x09,
     /// ECU name
     EcuName = 0x0A,
