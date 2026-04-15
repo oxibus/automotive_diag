@@ -41,7 +41,6 @@ pub enum UdsCommand {
     /// See also [`crate::uds::DtcSettingType`].
     ControlDTCSetting = 0x85,
     /// The client requests to set up and/or control an event mechanism in the server.
-    /// See also [`crate::uds::ResponseOnEventType`].
     ResponseOnEvent = 0x86,
     /// The client requests control of the communication baud-rate.
     /// See also [`crate::uds::LinkControlType`].
