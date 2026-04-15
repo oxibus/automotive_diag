@@ -272,7 +272,9 @@ macro_rules! bin_proto_wrapper_test {
     };
 }
 
-pub(crate) use {
-    assert_display_hash, bin_proto_wrapper_test, enum_byte_wrapper, enum_impls, enum_wrapper,
-    python_test,
-};
+pub(crate) use assert_display_hash;
+pub(crate) use bin_proto_wrapper_test;
+pub(crate) use enum_byte_wrapper;
+pub(crate) use enum_impls;
+pub(crate) use enum_wrapper;
+pub(crate) use python_test;
