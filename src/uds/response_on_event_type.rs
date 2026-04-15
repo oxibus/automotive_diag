@@ -25,7 +25,7 @@ pub enum ResponseOnEventType {
     /// and can be restarted with `StartResponseOnEvent`
     StopResponseOnEvent = 0x00,
 
-    /// Configures the server to send a response whenever a DTC status change matches the provided DTCStatusMask
+    /// Configures the server to send a response whenever a DTC status change matches the provided `DTCStatusMask`
     OnDtcStatusChange = 0x01,
 
     /// Configures the server to send a response when an internal data record identified by a dataIdentifier changes
@@ -46,6 +46,6 @@ pub enum ResponseOnEventType {
     /// Requests the server to report the most recent DTC with a testFailed or confirmedDTC bit transition from 0 to 1
     ReportMostRecentDtcOnStatusChange = 0x08,
 
-    /// Requests the server to report DTC record information when a DTC status change matches the provided DTCStatusMask
+    /// Requests the server to report DTC record information when a DTC status change matches the provided `DTCStatusMask`
     ReportDtcRecordInformationOnDtcStatusChange = 0x09,
 }
