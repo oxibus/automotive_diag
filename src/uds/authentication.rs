@@ -12,7 +12,7 @@ python_test!(
     VerifyCertificateUnidirectional
 );
 
-/// UDS Diagnostic Authentication subfunctions. Handled by SID 0x29
+/// [`UdsCommand::Authentication`](crate::uds::UdsCommand::Authentication) sub-function definitions
 #[repr(u8)]
 #[derive(strum::FromRepr, Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "bin-proto", derive(bin_proto::BitEncode))]
@@ -34,6 +34,21 @@ pub enum AuthenticationSubFunction {
     /// Proves that the client possesses the private key corresponding to the certificate
     ProofOfOwnership = 0x03,
 
-    /// Initiates configuration mode
+    /// Transfers a certificate to the server for processing without a challenge-response sequence,
+    /// enabling additional rights activation or signed-data proof verification
+    TransmitCertificate = 0x04,
+
+    /// Initiates the challenge-response (ACR) authentication flow by requesting a server-generated challenge
+    RequestChallengeForAuthentication = 0x05,
+
+    /// Submits the client-side proof of ownership to the server for unidirectional verification
+    /// in an ACR authentication flow
+    VerifyProofOfOwnershipUnidirectional = 0x06,
+
+    /// Submits the client-side proof of ownership to the server and requests the corresponding
+    /// server-side proof for bidirectional ACR authentication
+    VerifyProofOfOwnershipBidirectional = 0x07,
+
+    /// Requests the server to indicate its supported authentication configuration (APCE or ACR)
     AuthenticationConfiguration = 0x08,
 }
