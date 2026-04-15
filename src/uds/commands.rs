@@ -3,7 +3,7 @@ use crate::utils::{enum_wrapper, python_test};
 // The display constant ensures we do not accidentally change doc strings below.
 // We treat them as display strings too, so a change to the first line of the doc str is a code change.
 // Use `just bless` to update the expected value.
-enum_wrapper!(uds, UdsCommand, UdsCommandByte, display = @"10519249903237039609");
+enum_wrapper!(uds, UdsCommand, UdsCommandByte, display = @"2468007968532925220");
 python_test!(uds, UdsCommand, DiagnosticSessionControl, ECUReset);
 
 /// UDS Command Service IDs
