@@ -10,6 +10,7 @@ python_test!(uds, UdsCommand, DiagnosticSessionControl, ECUReset);
 #[cfg_attr(feature = "bin-proto", derive(bin_proto::BitDecode))]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[cfg_attr(feature = "display", derive(displaydoc::Display))]
+#[cfg_attr(feature = "display", ignore_extra_doc_attributes)]
 #[cfg_attr(feature = "iter", derive(strum::EnumIter))]
 #[cfg_attr(feature = "pyo3", pyo3::pyclass(eq, eq_int, from_py_object))]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -52,11 +53,11 @@ pub enum UdsCommand {
     ClearDiagnosticInformation = 0x14,
     /// Allows the client to request diagnostic information from the server (including DTCs, captured data, etc.).
     ReadDTCInformation = 0x19,
-    ///The client requests the control of an input/output specific to the server.
+    /// The client requests the control of an input/output specific to the server.
     InputOutputControlByIdentifier = 0x2F,
     /// The client requests to start, stop a routine in the server(s) or requests the routine results. See also [`crate::uds::RoutineControlType`].
     RoutineControl = 0x31,
-    ///The client requests the negotiation of a data transfer from the client to the server.
+    /// The client requests the negotiation of a data transfer from the client to the server.
     RequestDownload = 0x34,
     /// The client requests the negotiation of a data transfer from the server to the client.
     RequestUpload = 0x35,
