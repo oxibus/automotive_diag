@@ -22,8 +22,16 @@ pub enum ActivationType {
     Default = 0x00,
 
     /// WWH-OBD
+    ///
+    /// ISO 13400-2:2025 broadens this entry to "diagnostic communication
+    /// required by regulation (e.g. ISO 27145-1, ISO 20730-1)"; the wire
+    /// value is unchanged.
     WwhObd = 0x01,
 
     /// Central Security
-    CentralSecurity = 0x02,
+    ///
+    /// ISO 13400-2 assigns central security `0xE0` (Table 23 in the
+    /// 2012/2019 editions, Table 54 in the 2025 edition); `0x02..=0xDF` is
+    /// ISO/SAE reserved. This was previously (incorrectly) `0x02`.
+    CentralSecurity = 0xE0,
 }
