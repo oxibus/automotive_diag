@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.29](https://github.com/oxibus/automotive_diag/compare/v0.1.28...v0.1.29) - 2026-08-19
+
+### Fixed
+
+- *(doip)* [**breaking**] correct ActivationType::CentralSecurity to 0xE0 per ISO 13400-2 ([#94](https://github.com/oxibus/automotive_diag/pull/94))
+
+### Other
+
+- [pre-commit.ci] pre-commit autoupdate ([#91](https://github.com/oxibus/automotive_diag/pull/91))
+- *(deps)* bump the all-actions-version-updates group across 1 directory with 2 updates ([#93](https://github.com/oxibus/automotive_diag/pull/93))
+- update pyo3 and allow multiple ver due to syn ([#95](https://github.com/oxibus/automotive_diag/pull/95))
+
 ## [0.1.28](https://github.com/oxibus/automotive_diag/compare/v0.1.27...v0.1.28) - 2026-04-15
 
 ### Added
