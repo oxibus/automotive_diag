@@ -56,7 +56,7 @@ with-uds = ["uds"]
 bin-proto = { version = "0.12.6", optional = true, default-features = false, features = ["derive"] }
 defmt = { version = "1.0.1", optional = true }
 displaydoc = { version = "0.2", optional = true, default-features = false }
-pyo3 = { version = "0.28.2", optional = true }
+pyo3 = { version = "0.29.2", optional = true }
 serde = { version = "1", optional = true, default-features = false, features = ["derive"] }
 strum = { version = "0.28.0", default-features = false, features = ["derive"] }
 
@@ -76,6 +76,8 @@ todo = "warn"
 unwrap_used = "warn"
 # Pedantics without being too noisy
 cargo = { level = "warn", priority = -1 }
+multiple_crate_versions = "allow"  # syn is migrating v2 -> v3
+
 pedantic = { level = "warn", priority = -1 }
 missing_errors_doc = "allow"
 module_name_repetitions = "allow"
