@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.2.0](https://github.com/oxibus/automotive_diag/compare/v0.1.28...v0.2.0) - 2026-08-19
+## [0.1.29](https://github.com/oxibus/automotive_diag/compare/v0.1.28...v0.1.29) - 2026-08-19
 
 ### Fixed
 
